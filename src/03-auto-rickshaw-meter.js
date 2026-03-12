@@ -33,4 +33,27 @@
  */
 export function calculateAutoFare(distance, waitingMinutes = 0) {
   // Your code here
+  if (typeof distance !== "number" || distance <= 0 || typeof distance === "string") return -1
+  if (waitingMinutes < 0) return -1
+
+  const pairsDistance = Math.ceil(distance)
+  const pairsWaiting = Math.ceil(waitingMinutes / 2)
+
+  let totalRupees = 0
+  let i = 1
+  while (i <= pairsDistance) {
+    if (i === 1) {
+      totalRupees += 30
+    } else if (i > 1 && i <= 5) {
+      totalRupees += 15
+    } else {
+      totalRupees += 10
+    }
+
+    i++
+  }
+  if (pairsWaiting > 0) {
+    totalRupees += pairsWaiting * 5
+  }
+  return totalRupees
 }

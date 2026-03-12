@@ -35,4 +35,40 @@
  */
 export function buildPlaylist(songs, maxDuration) {
   // Your code here
+  let count = 0;
+  let totalDuration = 0;
+  let i = 0;
+
+  // 2. Validation
+  // Check if songs is an array and maxDuration is a valid positive number
+  if (!Array.isArray(songs) || typeof maxDuration !== 'number' || maxDuration <= 0) {
+    return { count: 0, totalDuration: 0 };
+  }
+
+  // 3. The Loop
+  while (i < songs.length) {
+    let currentSong = songs[i];
+
+    // Rule: Skip if song duration is not a positive number (NaN, string, negative, etc.)
+    if (typeof currentSong !== 'number' || currentSong <= 0 || isNaN(currentSong)) {
+      i++; // Move to next song
+      continue; // Skip the rest of this loop iteration
+    }
+
+    // Rule: BEFORE adding, check if it fits
+    if (totalDuration + currentSong <= maxDuration) {
+      // It fits! Add it to our playlist
+      totalDuration += currentSong;
+      count++;
+    } else {
+      // It doesn't fit! STOP the process immediately as per rules
+      break; 
+    }
+
+    // Move to the next song in the array
+    i++;
+  }
+
+  // 4. Return the result object
+  return { count, totalDuration };
 }

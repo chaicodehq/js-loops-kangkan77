@@ -30,6 +30,83 @@
  *   cricketScoreboard([])
  *   // => { totalRuns: 0, totalBalls: 0, wickets: 0, fours: 0, sixes: 0 }
  */
+
+// I found , there are two approach
+// 1st Way
+
 export function cricketScoreboard(balls) {
   // Your code here
+  let wickets = 0
+  let totalRuns = 0
+  let fours = 0
+  let sixes = 0
+  let totalBalls = 0
+  if(!Array.isArray(balls) || balls.length === 0) return { totalRuns: 0, totalBalls: 0, wickets: 0, fours: 0, sixes: 0 }
+
+  for(let i = 0; i < balls.length; i++){
+    let ball = balls[i]
+     if(wickets >= 10){
+      break
+     }
+     totalBalls += 1
+
+    if(ball === 0){
+      totalRuns += 0
+    } else if (ball === 4){
+      fours += 1
+      totalRuns += 4
+    } else if (ball === 6){
+      sixes += 1
+      totalRuns += 6
+    } else if (ball === -1){
+      wickets += 1
+    } else if (ball === 2){
+      totalRuns += 2
+    } else if (ball === 1){
+      totalRuns += 1
+    } else if (ball === 3){
+      totalRuns += 3
+    }
+  }
+  return {totalRuns, totalBalls, wickets, fours, sixes}
 }
+
+
+
+// 2nd Way
+
+// export function cricketScoreboard(balls) {
+//   // Your code here
+//   let wickets = 0
+//   let totalRuns = 0
+//   let fours = 0
+//   let sixes = 0
+//   let totalBalls = 0
+//   if(!Array.isArray(balls) || balls.length === 0) return { totalRuns: 0, totalBalls: 0, wickets: 0, fours: 0, sixes: 0 }
+
+//   for(let ball of balls){
+//      if(wickets >= 10){
+//       break
+//      }
+//      totalBalls += 1
+
+//     if(ball === 0){
+//       totalRuns += 0
+//     } else if (ball === 4){
+//       fours += 1
+//       totalRuns += 4
+//     } else if (ball === 6){
+//       sixes += 1
+//       totalRuns += 6
+//     } else if (ball === -1){
+//       wickets += 1
+//     } else if (ball === 2){
+//       totalRuns += 2
+//     } else if (ball === 1){
+//       totalRuns += 1
+//     } else if (ball === 3){
+//       totalRuns += 3
+//     }
+//   }
+//   return {totalRuns, totalBalls, wickets, fours, sixes}
+// }

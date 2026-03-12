@@ -38,4 +38,66 @@
  */
 export function iplPointsTable(matches) {
   // Your code here
+  // I love RCB not hate dhoni and virat 
+  if (!Array.isArray(matches) || matches.length === 0) {
+    return [];
+  }
+
+  let stats = {};
+
+  for (let i = 0; i < matches.length; i++) {
+    let match = matches[i];
+    let t1 = match.team1;
+    let t2 = match.team2;
+
+    if (stats[t1] === undefined) {
+      stats[t1] = { team: t1, played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0 };
+    }
+    if (stats[t2] === undefined) {
+      stats[t2] = { team: t2, played: 0, won: 0, lost: 0, tied: 0, noResult: 0, points: 0 };
+    }
+
+    stats[t1].played += 1;
+    stats[t2].played += 1;
+
+    if (match.result === "win") {
+      let winner = match.winner;
+      let loser;
+      if (winner === t1) {
+        loser = t2;
+      } else {
+        loser = t1;
+      }
+
+      stats[winner].won += 1;
+      stats[winner].points += 2;
+      stats[loser].lost += 1;
+      
+    } else if (match.result === "tie") {
+      stats[t1].tied += 1;
+      stats[t2].tied += 1;
+      stats[t1].points += 1;
+      stats[t2].points += 1;
+
+    } else if (match.result === "no_result") {
+      stats[t1].noResult += 1;
+      stats[t2].noResult += 1;
+      stats[t1].points += 1;
+      stats[t2].points += 1;
+    }
+  }
+
+  let table = Object.values(stats);
+
+  
+  table.sort(function(a, b) {
+    if (a.points !== b.points) {
+      return b.points - a.points; 
+    }
+    if (a.team < b.team) return -1;
+    if (a.team > b.team) return 1;
+    return 0;
+  });
+
+  return table;
 }

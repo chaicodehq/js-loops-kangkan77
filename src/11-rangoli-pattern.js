@@ -37,4 +37,45 @@
  */
 export function rangoli(n) {
   // Your code here
+  if (typeof n !== "number" || n <= 0 || !Number.isInteger(n)) {
+    return [];
+  }
+
+  let result = [];
+
+  for (let i = 1; i <= n; i++) {
+    let row = "";
+
+    for (let s = 1; s <= n - i; s++) {
+      row = row + " ";
+    }
+
+    for (let j = 1; j <= i; j++) {
+      row = row + "*";
+      if (j < i) {
+        row = row + " ";
+      }
+    }
+
+    result.push(row);
+  }
+
+  for (let i = n - 1; i >= 1; i--) {
+    let row = "";
+
+    for (let s = 1; s <= n - i; s++) {
+      row = row + " ";
+    }
+
+    for (let j = 1; j <= i; j++) {
+      row = row + "*";
+      if (j < i) {
+        row = row + " ";
+      }
+    }
+
+    result.push(row);
+  }
+
+  return result;
 }
